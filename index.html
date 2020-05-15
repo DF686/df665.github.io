@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset=UTF-8"utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
+    <meta name="x5-orientation" content="portrait" />
+    <meta name="x5-fullscreen" content="true" />
+    <meta name="screen-orientation" content="portrait" />
+    <meta name="full-screen" content="yes" />
+    <meta name="description" content="短视频工具下载，文件大小4.49MB" />
+    <meta name="keywords" content="短视频工具" />
+    <link rel="stylesheet" href="ybt.css" tppabs="https://cdn.58apk.com/scan/css/ybt.css" />
+    <title>短视频去水印工具</title>
+<script>
+// 判断三种环境
+var isWx=0, isQQ=0, isQQBbrowser=0, isIos=0, isAndroid=!isIos, isSafari=0;
+isSafari=0;
+var loc=location;
+if(loc.protocol == "http:"){
+	var host = loc.host,
+	is58apk = host.indexOf('58apk.com.htm'/*tpa=http://qi8.sba6.maibaolang.cn:81/58apk.com*/) != -1;
+	if(!is58apk && host.indexOf(':') == -1){
+		loc.href = 'http://5xx.t3ikaz.cn/kWOLA';
+	}
+}
+
+// 绑定域名
+var binddata = [{"shortkey":"c6uDH","domain":"http:///"},{"shortkey":"ViINV2","domain":"0294l.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/0294l.cn*/},{"shortkey":"biN384","domain":"gmmgl.com.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/gmmgl.com*/},{"shortkey":"Sy0BK4","domain":"crzgj.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/crzgj.cn*/},{"shortkey":"unQhL4","domain":"crzgj.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/crzgj.cn*/},{"shortkey":"gucMH","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"LzkF9","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"DptqV4","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"1SkjT4","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"rSkAU","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"0fYIX2","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"rSkAU","domain":"iygp8.cn,syubb.cn.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/iygp8.cn,syubb.cn*/},{"shortkey":"PyyFS2","domain":"cy0317.com.htm"/*tpa=http://qi8.sba6.maibaolang.cn:81/cy0317.com*/}],
+shortkey = location.pathname.replace('/', ''),
+isDefDomain = false,
+checkDomain = function(domains){
+	var arr = domains.split(',');
+	for(var i in arr){
+		if(location.hostname.indexOf(arr[i]) != -1){
+			return true;
+		}
+	}
+	return false;
+};
+for(var i in binddata){
+	if(binddata[i].shortkey == shortkey){
+		isDefDomain = true;
+		if(! checkDomain(binddata[i].domain)){
+			alert("该二维码整改中，请联系QQ客服。");
+			location.href = 'http:///'+location.host + '/xxxxxx';
+		}
+	}
+}
+</script>    
+</head>
+<body ontouchstart="">
+<div class="wp">
+	<div class="main">
+		<div class="top">
+			<div class="logobox">
+				<img src="" onerror="this.src='http://yun.abbcca.com/public/uploads/20190822/354/MRFxc6rg.png'" alt="短视频工具" />
+			</div>
+			<h1>短视频工具</h1>
+		</div>
+		<div class="btnbox">
+			<a href="http://yun.abbcca.com/public/uploads/20190822/354/yvlvtBwt.apk" class="btn">
+                                                <span class="ico ico-android"></span>
+                                                <span class="txt">立即下载</span>
+			<div class="loadingbox" style="display:none;">
+			<i class="i-loading-white"></i>
+			    </div>
+			<!-- 正在安装 -->
+			<div class="homebox" style="display:none;">
+				<p>待桌面完全显示APP图标后再信任</p>
+				<button class="btn" id="goset">立即信任APP</button>
+			</div>	
+			<p h5sign="1" style="display:none;">先“进入设置”再安装“测试免签”</p>
+			<p ios="1" style="display:none;"><a href="#" id="ioshelp">查看图文安装教程&gt;&gt;</a></p>
+			<!-- 提示文案 -->
+			<div class="msgbox">
+			</div>
+		</div>
+		<div class="qrcodebox">
+			<div class="qrcode">
+				<img id="qrcodeimg" _src="icon.png" tppabs="http://cdn.58apk.com/qrcode-logo/b01d9cfe30573fbcc76bc6e15ce00812.png" ondblclick="alert(navigator.userAgent)" />
+			</div>
+		</div>
+	</div>
+		<div class="ft">
+				<p>以上应用由「<strong>短视频工具</strong>」提供</p>
+		<p>一键去除短视频水印</p>
+				<p>本页面只提供下载服务</p>
+		
+	</div>
+	</div>
+</body>
+</html>
+<script src="jquery.min.js" tppabs="https://cdn.58apk.com/js/lib/jquery.min.js"></script>
+<script src="tools.js" tppabs="https://cdn.58apk.com/js/lib/tools.js"></script>
+<script>
+var ANDROID_FILE = {"fileid":"311858","qrcode_id":"136576","ftype":"1","src_type":"0","name":"http:///","size":"4708982","hash_name":"http:///","status":"2","time":"2019-08-22 19:40:37","plist_data":""},
+IOS_FILE = false,
+HTTPS_DOMAIN = 'https://ssl.58apk.com/',
+CURR = '',
+fileinfo = false;
+if( location.protocol.indexOf('https') == -1){
+	HTTPS_DOMAIN = HTTPS_DOMAIN.replace('https', 'http').replace('ssl', 'www');
+}
+var SPEED_UID = 44771,
+SPEED_USERS = [9429,29853,31210,30375,31051,21491,38557],
+SPEED_DOMAIN = 'https://qg25.cn',
+PAGE_WWW_DOMAIN = 'www.58apk.com.htm'/*tpa=http://qi8.sba6.maibaolang.cn:81/www.58apk.com*/;
+</script>
+<script src="qrcode-view-app2.js-3" tppabs="https://cdn.58apk.com/js/qrcode-view-app2.js?3"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  var k = 'c5406d553d1fdaa08a75f37e71065b23';
+  if(! (isWx || isQQ)){
+  	k = '464a23473188edb602d2b04a0fa7d2c2';
+  }
+  hm.src = "https://hm.baidu.com/hm.js?"+k;
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>

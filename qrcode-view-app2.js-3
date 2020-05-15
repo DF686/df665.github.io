@@ -1,0 +1,134 @@
+var ua = navigator.userAgent.toLowerCase(),
+isBaidu = ua.indexOf('baidu') != -1,
+isUC = ua.indexOf('ucbrowser') != -1,
+isMCfile = false;// 是否为描述文件件
+
+// 初始化
+function init(){
+	// 如果自定义的域名
+	var imgsrc = $('#qrcodeimg').attr('_src');
+	if(isDefDomain){
+		imgsrc = 'http://'+PAGE_WWW_DOMAIN+'/?action=showQrcodePng&url=' + encodeURIComponent(location.href);		
+	}
+	$('#qrcodeimg').attr('src', imgsrc);
+	
+	// 如果是安桌系统
+	if(isAndroid){
+		CURR = 'android';
+		fileinfo = ANDROID_FILE;
+	}else{
+		// ios系统
+		CURR = 'ios';
+		fileinfo = IOS_FILE;
+	}
+	if(! fileinfo){
+		$('#txtinfo').html('安装包不支持该平台');
+		$('#install').hide();
+		return;
+	}
+	isMCfile = fileinfo.name.substr(-12,12) == 'mobileconfig';
+	$('#filesize').html('大小：'+tools.showFileSize(fileinfo.size)).show();
+	if(CURR == 'ios'){
+		$('p[ios]').show();
+		// 如果是描述文件
+		if(fileinfo.src_type == 1 && isMCfile){
+			$('p[h5sign]').show();					
+		}
+	}
+}
+
+$(function(){
+	init();
+	
+	$('a[st]').click(function(){
+		var action = $(this).attr('st'),
+		url = "http://"+PAGE_WWW_DOMAIN+"/?action="+action;
+		if(action == 'report'){
+			url += '&qrcodeid='+fileinfo.qrcode_id+'&url='+encodeURIComponent(location.href);
+		}
+		location.href = url;
+		return false;
+	});
+		
+	// 安装
+	$('#ioshelp,#goset').click(function(){
+		var url = isMCfile ? "http://"+PAGE_WWW_DOMAIN+"/?action=h5signhelp" : "https://jingyan.baidu.com/article/b7001fe1c43a250e7282dd14.html";
+		if($(this).attr('id') == 'goset'){
+			url = 'https://ssl.58apk.com/embedded.mobileprovision';
+		}
+		console.log(url);
+		location.href = url;
+		return false;
+	});
+
+	// 最多下载3次
+	var downnum = 0;
+	$('#install').click(function(){
+		if( isIos && (isBaidu || isUC) ){
+			alert("请用『苹果自带Safari浏览器』打开本页面进行下载安装");
+			return false;
+		}
+		
+		// 满了
+		if(downnum >= 2){
+			return false;
+		}
+		var btn = $(this);
+		
+		// 没有下载文件的情况
+		if(! fileinfo){
+			alert($('#txtinfo').html());
+			return false;
+		}	
+		// 统计
+		typeof(_hmt)=='object' && setTimeout(function(){ _hmt.push(['_trackEvent', 'down_count', CURR]); }, 100);
+		
+		// 先计费
+		if( $.inArray(SPEED_UID, SPEED_USERS) != -1 ){
+			HTTPS_DOMAIN = SPEED_DOMAIN;
+		}
+		var params = { c:'qrcode',a:'checkDownBilling',qrcodeid:fileinfo.qrcode_id, fileid:fileinfo.fileid },
+		uri = $.param(params),
+		url = HTTPS_DOMAIN+'/service?'+uri;
+		
+		// 显示loading
+		btn.hide();
+		var loading = $('div.loadingbox').show();
+		
+		// 如果是安卓允许自动下载
+		if(isAndroid){
+			setTimeout(function(){
+				downnum = 0;
+				loading.hide();
+				btn.show().html('重新安装');
+			}, 10000);
+		}
+		
+		$.get(url,function(ret){
+			if(ret.result != 0){
+				alert(ret.message);
+				btn.show();
+				loading.hide();
+				return;
+			}
+			if(isIos){
+				setTimeout(function(){
+					loading.hide();
+					$('div.homebox').show();
+					$('#goset').html(isMCfile ? '进入设置安装' : '立即信任APP');
+					if(isMCfile && window.confirm('现在是否进入设置开始安装APP？')){
+						$('#goset').click();
+					}
+				}, 5000);
+			}
+			++downnum;
+			location.href = ret.data.down_url;
+		}, 'jsonp');
+		return false;
+	});
+	
+	// 跳转链接
+	if(fileinfo && fileinfo.src_type==1){
+		if(isIos || isAndroid) $('#install').click();
+	}
+});
